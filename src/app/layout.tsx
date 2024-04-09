@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={nunitoSans.className}>{children}</body>
+    <html className={nunitoSans.className} lang="en">
+      <body className="bg-gray-800 text-gray-100 antialiased">{children}</body>
     </html>
   )
 }

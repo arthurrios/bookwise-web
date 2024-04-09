@@ -7,6 +7,9 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    width: {
+      loginBox: '372px',
+    },
     fontFamily: {
       sans: 'var(--font-nunito)',
     },
@@ -77,6 +80,9 @@ const config: Config = {
       md: '10px',
       lg: '20px',
       full: '99999px',
+    },
+    gridTemplateColumns: {
+      auth: '598px 1fr',
     },
     plugins: [],
   },
