@@ -7,9 +7,15 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    linearGradientColors: {
+      'gradient-1': ['to bottom', '#7FD1CC', '#9694F5'],
+    },
     extend: {
       width: {
         loginBox: '372px',
+      },
+      maxHeight: {
+        asideMenu: '988px',
       },
       fontFamily: {
         sans: 'var(--font-nunito)',
@@ -70,6 +76,8 @@ const config: Config = {
           700: '#181C2A',
           800: '#0E1116',
         },
+
+        'danger-light': '#F75A68',
       },
       backgroundImage: {
         'gradient-vertical': `linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%)`,
@@ -84,7 +92,7 @@ const config: Config = {
       },
       gridTemplateColumns: {
         auth: '598px 1fr',
-        home: '242px 1fr',
+        home: '262px 1fr',
       },
       gridTemplateRows: {
         home: '146px 1fr',

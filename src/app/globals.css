@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.border-gradient-vertical {
+  border-image: linear-gradient(180deg, #7FD1CC 0%, #9694F5 100%);
+  border-image-slice: 1;
+}
+
+.border-gradient-vertical {
+  border-image: linear-gradient(90deg, #7FD1CC 0%, #9694F5 100%);
+  border-image-slice: 1; 
+}
