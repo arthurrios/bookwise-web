@@ -9,7 +9,7 @@ export function MainNavigation() {
   const [activeItem, setActiveItem] = useState('home')
 
   return (
-    <nav className="flex flex-col gap-2">
+    <nav className="z-10 flex flex-col gap-2">
       <NavItem
         href="/"
         title="Home"

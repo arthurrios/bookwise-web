@@ -6,7 +6,7 @@ import { tv, VariantProps } from 'tailwind-variants'
 
 const logo = tv({
   slots: {
-    container: 'flex items-center gap-3',
+    container: 'flex items-center gap-3 z-10',
     vector: '',
     title:
       'bg-gradient-horizontal bg-clip-text text-[2.25rem] font-bold text-[transparent]',

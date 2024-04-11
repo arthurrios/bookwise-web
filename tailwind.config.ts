@@ -7,10 +7,10 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    linearGradientColors: {
-      'gradient-1': ['to bottom', '#7FD1CC', '#9694F5'],
-    },
     extend: {
+      padding: {
+        18: '4.5rem',
+      },
       width: {
         loginBox: '372px',
       },

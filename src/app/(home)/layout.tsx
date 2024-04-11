@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Sidebar } from './components/Sidebar'
+import { Header } from './components/Header'
 
 export default function HomeLayout({ children }: { children: ReactNode }) {
   return (
@@ -7,7 +8,9 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       <div className="row-span-2 p-5">
         <Sidebar />
       </div>
-      <div className="row-span-1 bg-purple-100">Header</div>
+      <div>
+        <Header />
+      </div>
       {children}
     </div>
   )

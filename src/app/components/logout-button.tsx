@@ -11,7 +11,7 @@ export interface LogoutButtonProps extends ComponentProps<'button'> {
 
 export function LogoutButton({ imgSrc, title, ...props }: LogoutButtonProps) {
   return (
-    <button {...props} className="flex cursor-pointer items-center gap-3">
+    <button {...props} className="z-10 flex cursor-pointer items-center gap-3">
       <div className="relative size-8 rounded-full bg-gradient-vertical">
         <Image
           src={imgSrc}
