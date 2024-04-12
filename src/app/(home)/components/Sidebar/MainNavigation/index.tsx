@@ -1,12 +1,22 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavItem } from './NavItem'
 
 import { Binoculars, ChartLineUp, User } from '@phosphor-icons/react'
+import { usePathname } from 'next/navigation'
 
 export function MainNavigation() {
+  const route = usePathname().split('/')[1]
   const [activeItem, setActiveItem] = useState('home')
+
+  useEffect(() => {
+    if (route === '') {
+      setActiveItem('home')
+    } else {
+      setActiveItem(String(route))
+    }
+  }, [route])
 
   return (
     <nav className="z-10 flex flex-col gap-2">
