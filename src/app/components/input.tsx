@@ -1,5 +1,3 @@
-'use client'
-
 import { ComponentProps, ElementType } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
@@ -17,7 +15,7 @@ export type InputProps = ComponentProps<'input'> &
     icon: ElementType
   }
 
-export function Input({ icon: Icon, variant, ...props }: InputProps) {
+export function Input({ variant, icon: Icon, ...props }: InputProps) {
   return (
     <div className="relative text-gray-500 focus-within:text-green-200">
       <input type="search" {...props} className={input({ variant })} />
