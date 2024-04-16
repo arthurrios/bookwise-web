@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.last-line-middle {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Number of lines you want to display */
+  -webkit-line-clamp: 4;
+  /* Height of each line, multiplied by number of lines */
+  max-height: calc(1.5rem * 4);
+  position: relative;
+}
+
+.last-line-middle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%; /* Adjust this to control how much of the last line is visible */
+  height: 1.5rem; /* Height of each line */
+  background: linear-gradient(to right, transparent, #1f2937 50%); /* Gradient to fade the text */
+}

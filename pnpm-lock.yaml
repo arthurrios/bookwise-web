@@ -14,6 +14,9 @@ dependencies:
   '@prisma/client':
     specifier: ^5.12.1
     version: 5.12.1(prisma@5.12.1)
+  '@types/react-text-truncate':
+    specifier: ^0.14.4
+    version: 0.14.4
   framer-motion:
     specifier: ^11.0.27
     version: 11.0.27(react-dom@18.2.0)(react@18.2.0)
@@ -26,6 +29,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.2.0(react@18.2.0)
+  react-text-truncate:
+    specifier: ^0.19.0
+    version: 0.19.0(react-dom@18.2.0)(react@18.2.0)
   tailwind-variants:
     specifier: ^0.2.1
     version: 0.2.1(tailwindcss@3.4.3)
@@ -455,7 +461,6 @@ packages:
 
   /@types/prop-types@15.7.12:
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
-    dev: true
 
   /@types/react-dom@18.2.24:
     resolution: {integrity: sha512-cN6upcKd8zkGy4HU9F1+/s98Hrp6D4MOcippK4PoE8OZRngohHZpbJn1GsaDLz87MqvHNoT13nHvNqM9ocRHZg==}
@@ -463,12 +468,17 @@ packages:
       '@types/react': 18.2.74
     dev: true
 
+  /@types/react-text-truncate@0.14.4:
+    resolution: {integrity: sha512-qdw8522RqdYkTX0FShDPDx8hIRVjPydW8PXl/wKpPGpAtjJTsaNiFOe0fxMRLXIEQaAZvC5VLlKGGONAetb6nQ==}
+    dependencies:
+      '@types/react': 18.2.74
+    dev: false
+
   /@types/react@18.2.74:
     resolution: {integrity: sha512-9AEqNZZyBx8OdZpxzQlaFEVCSFUM2YXJH46yPOiOpm078k6ZLOCcuAzGum/zK8YBwY+dbahVNbHrbgrAwIRlqw==}
     dependencies:
       '@types/prop-types': 15.7.12
       csstype: 3.1.3
-    dev: true
 
   /@types/semver@7.5.8:
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
@@ -954,7 +964,6 @@ packages:
 
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
-    dev: true
 
   /damerau-levenshtein@1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
@@ -2669,7 +2678,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
@@ -2691,7 +2699,17 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: true
+
+  /react-text-truncate@0.19.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-QxHpZABfGG0Z3WEYbRTZ+rXdZn50Zvp+sWZXgVAd7FCKAMzv/kcwctTpNmWgXDTpAoHhMjOVwmgRtX3x5yeF4w==}
+    peerDependencies:
+      react: ^15.4.1 || ^16.0.0 || ^17.0.0 ||  || ^18.0.0
+      react-dom: ^15.4.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}

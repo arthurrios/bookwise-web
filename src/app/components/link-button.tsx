@@ -44,7 +44,7 @@ const link = tv({
 
   defaultVariants: {
     variant: 'forward',
-    size: 'md',
+    size: 'sm',
   },
 })
 

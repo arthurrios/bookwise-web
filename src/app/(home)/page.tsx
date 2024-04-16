@@ -1,14 +1,15 @@
 import { LinkButton } from '@/app/components/link-button'
 import { FeaturedBookCard } from '../components/featured-book-card'
+import { UserBookCard } from '../components/user-book-card'
 
 export default function Home() {
   return (
-    <div className="pl-18">
+    <div className="pb-12 pl-18">
       <div className="h-full max-w-main flex-1">
         <div className="flex gap-16">
           <div>
             <div className="mb-4 flex min-w-mainHome items-center justify-between">
-              Your last reading
+              <span className="text-sm text-gray-100">Your last reading</span>
               <LinkButton
                 variant="forward"
                 href="/profile"
@@ -17,10 +18,19 @@ export default function Home() {
               />
             </div>
             <FeaturedBookCard />
+            <div className="mt-10">
+              <span className="text-sm text-gray-100">Recent ratings</span>
+              <div className="mt-4 space-y-3">
+                <UserBookCard />
+                <UserBookCard />
+                <UserBookCard />
+                <UserBookCard />
+              </div>
+            </div>
           </div>
           <div className="w-full">
             <div className="flex items-center justify-between">
-              Popular books
+              <span className="text-sm text-gray-100">Popular books</span>
               <LinkButton
                 variant="forward"
                 href="/explore"
