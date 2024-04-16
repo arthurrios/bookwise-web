@@ -9,7 +9,7 @@ export function Sidebar() {
         <Logo variant="aside" />
         <MainNavigation />
       </div>
-      <LogoutButton imgSrc="https://github.com/arthurrios.png" title="Arthur" />
+      <LogoutButton />
       <div className="absolute -left-24 -top-20 h-[221px] w-[221px] rounded-full bg-green-200 blur-[189px]" />
       <div className="absolute -right-24 -top-20 h-[221px] w-[221px] rounded-full bg-purple-200 blur-[189px]" />
       <div className="absolute -right-24 top-60 h-[295px] w-[295px] rounded-full bg-purple-200 blur-[189px]" />

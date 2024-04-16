@@ -1,6 +1,12 @@
 'use client'
 
-import { Binoculars, ChartLineUp, User } from '@phosphor-icons/react'
+import { Input } from '@/app/components/input'
+import {
+  Binoculars,
+  ChartLineUp,
+  MagnifyingGlass,
+  User,
+} from '@phosphor-icons/react'
 import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
 
@@ -26,9 +32,18 @@ export function Header() {
   }
 
   return (
-    <div className="pt-18 flex items-center gap-3 pl-[4.75rem] text-2xl font-bold leading-short">
-      {icon}
-      <h1>{title}</h1>
+    <div className="pt-18 flex items-start justify-between pb-10 pl-[4.75rem] pr-24 text-2xl font-bold leading-short">
+      <div className="flex items-center gap-3">
+        {icon}
+        <h1>{title}</h1>
+      </div>
+      {route === 'explore' && (
+        <Input
+          icon={MagnifyingGlass}
+          placeholder="Search book or author"
+          variant="profile"
+        />
+      )}
     </div>
   )
 }

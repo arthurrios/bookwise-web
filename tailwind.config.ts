@@ -13,9 +13,19 @@ const config: Config = {
       },
       width: {
         loginBox: '372px',
+        bookCard: '600px',
       },
       maxHeight: {
         asideMenu: '988px',
+      },
+      maxWidth: {
+        main: '1060px',
+        profileContainer: '996px',
+      },
+      minWidth: {
+        mainHome: '608px',
+        mainProfile: '624px',
+        input: '433px',
       },
       fontFamily: {
         sans: 'var(--font-nunito)',
