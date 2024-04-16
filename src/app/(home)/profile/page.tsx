@@ -10,17 +10,33 @@ import {
   UserList,
 } from '@phosphor-icons/react'
 import { ProfileItem } from './components/profile-item'
+import { UserBookCard } from '@/app/components/user-book-card'
+import { ProfileBookCard } from '@/app/components/profile-book-card'
 
 export default function Profile() {
   return (
     <div className="pl-18">
-      <div className="max-w-profileContainer flex gap-16">
-        <div className="min-w-mainProfile">
+      <div className="flex max-w-profileContainer gap-16">
+        <div className="min-w-mainProfile space-y-10">
           <Input
             icon={MagnifyingGlass}
             className="w-full"
             placeholder="Search rated book"
           />
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <span className="text-sm text-gray-300">Today</span>
+              <ProfileBookCard />
+            </div>
+            <div className="space-y-2">
+              <span className="text-sm text-gray-300">Today</span>
+              <ProfileBookCard />
+            </div>
+            <div className="space-y-2">
+              <span className="text-sm text-gray-300">Today</span>
+              <ProfileBookCard />
+            </div>
+          </div>
         </div>
         <div className="flex w-full flex-col items-center gap-8 border-l border-l-gray-700">
           <div className="flex flex-col items-center gap-5 pb-2">

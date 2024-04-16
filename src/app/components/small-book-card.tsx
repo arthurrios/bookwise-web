@@ -25,7 +25,7 @@ export function SmallBookCard({ data, ...props }: SmallBookCardProps) {
         />
         <div className="flex flex-col justify-between text-left">
           <div className="flex flex-col">
-            <h1 className="leading-short text-gray-100">
+            <h1 className="font-bold leading-short text-gray-100">
               A revolução dos bichos
             </h1>
             <span className="text-sm text-gray-400">George Orwell</span>
