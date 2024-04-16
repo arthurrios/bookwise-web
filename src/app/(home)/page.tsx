@@ -1,6 +1,7 @@
 import { LinkButton } from '@/app/components/link-button'
 import { FeaturedBookCard } from '../components/featured-book-card'
 import { UserBookCard } from '../components/user-book-card'
+import { SmallBookCard } from '../components/small-book-card'
 
 export default function Home() {
   return (
@@ -29,7 +30,7 @@ export default function Home() {
             </div>
           </div>
           <div className="w-full">
-            <div className="flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
               <span className="text-sm text-gray-100">Popular books</span>
               <LinkButton
                 variant="forward"
@@ -37,6 +38,12 @@ export default function Home() {
                 title="See all"
                 color="purple"
               />
+            </div>
+            <div className="space-y-3">
+              <SmallBookCard />
+              <SmallBookCard />
+              <SmallBookCard />
+              <SmallBookCard />
             </div>
           </div>
         </div>

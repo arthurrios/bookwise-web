@@ -13,7 +13,7 @@ export interface UserBookCardProps {
   userId: string
 }
 
-export function UserBookCard(props: UserBookCardProps) {
+export function UserBookCard({ book, userId }: UserBookCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
