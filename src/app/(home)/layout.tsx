@@ -8,9 +8,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
       <div className="row-span-2 p-5">
         <Sidebar />
       </div>
-      <div>
-        <Header />
-      </div>
+      <Header />
       {children}
     </div>
   )

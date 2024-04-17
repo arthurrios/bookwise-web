@@ -2,7 +2,7 @@ import { ComponentProps, ElementType } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const input = tv({
-  base: 'w-full rounded-[4px] border border-gray-500 bg-gray-800 px-5 py-[14px] text-sm font-regular text-gray-200 outline-none placeholder:text-gray-400 focus:border-green-200',
+  base: 'w-full h-12 rounded-[4px] border border-gray-500 bg-gray-800 px-5 py-[14px] text-sm font-regular text-gray-200 outline-none placeholder:text-gray-400 focus:border-green-200',
   variants: {
     variant: {
       profile: 'min-w-input',

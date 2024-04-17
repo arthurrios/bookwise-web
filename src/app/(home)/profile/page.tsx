@@ -10,12 +10,11 @@ import {
   UserList,
 } from '@phosphor-icons/react'
 import { ProfileItem } from './components/profile-item'
-import { UserBookCard } from '@/app/components/user-book-card'
 import { ProfileBookCard } from '@/app/components/profile-book-card'
 
 export default function Profile() {
   return (
-    <div className="pl-18">
+    <div className="pb-12 pl-18">
       <div className="flex max-w-profileContainer gap-16">
         <div className="min-w-mainProfile space-y-10">
           <Input
@@ -38,7 +37,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-col items-center gap-8 border-l border-l-gray-700">
+        <div className="flex h-full w-full flex-col items-center gap-8 border-l border-l-gray-700">
           <div className="flex flex-col items-center gap-5 pb-2">
             <Avatar
               src="https://github.com/arthurrios.png"

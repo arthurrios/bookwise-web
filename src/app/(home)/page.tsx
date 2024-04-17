@@ -29,7 +29,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full">
+          <div className="max-w-homePopularSection w-full">
             <div className="mb-4 flex items-center justify-between">
               <span className="text-sm text-gray-100">Popular books</span>
               <LinkButton

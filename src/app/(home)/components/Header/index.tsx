@@ -32,7 +32,7 @@ export function Header() {
   }
 
   return (
-    <div className="pt-18 flex items-start justify-between pb-10 pl-[4.75rem] pr-24 text-2xl font-bold leading-short">
+    <div className="flex items-start justify-between pb-10 pl-[4.75rem] pr-24 pt-18 text-2xl font-bold leading-short">
       <div className="flex items-center gap-3">
         {icon}
         <h1>{title}</h1>
