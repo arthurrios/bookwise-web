@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { BookCardDTO } from '../dtos/BookCardDTO'
 import { Avatar } from './avatar'
 import { Rating } from './rating'
-import bookImg from '../../../public/images/entendendo-algoritmos.png'
+import bookImg from '../../../public/images/books/entendendo-algoritmos.png'
 import { useState } from 'react'
 
 export interface UserBookCardProps {

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { BookCardDTO } from '../dtos/BookCardDTO'
-import bookImg from '../../../public/images/a-revolucao-dos-bichos.png'
+import bookImg from '../../../public/images/books/a-revolucao-dos-bichos.png'
 import { Rating } from './rating'
 
 export interface ProfileBookCardProps {

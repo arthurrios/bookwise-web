@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 
-import bookImg from '../../../public/images/entendendo-algoritmos.png'
+import bookImg from '../../../public/images/books/entendendo-algoritmos.png'
 import { BookCardDTO } from '../dtos/BookCardDTO'
 import { ComponentProps } from 'react'
 import { Rating } from './rating'
