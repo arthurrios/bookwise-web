@@ -21,11 +21,13 @@ const config: Config = {
       maxWidth: {
         main: '1060px',
         profileContainer: '996px',
+        homePopularSection: '324px',
       },
       minWidth: {
         mainHome: '608px',
         mainProfile: '624px',
         input: '433px',
+        explore: '1082px',
       },
       fontFamily: {
         sans: 'var(--font-nunito)',
