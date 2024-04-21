@@ -5,10 +5,13 @@ import { NavItem } from './NavItem'
 
 import { Binoculars, ChartLineUp, User } from '@phosphor-icons/react'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 export function MainNavigation() {
   const route = usePathname().split('/')[1]
   const [activeItem, setActiveItem] = useState('home')
+
+  const { data } = useSession()
 
   useEffect(() => {
     if (route === '') {
@@ -36,14 +39,17 @@ export function MainNavigation() {
         onClick={() => setActiveItem('explore')}
         replace
       />
-      <NavItem
-        href="/profile"
-        title="Profile"
-        icon={User}
-        isSelected={activeItem === 'profile'}
-        onClick={() => setActiveItem('profile')}
-        replace
-      />
+
+      {data?.user && (
+        <NavItem
+          href="/profile"
+          title="Profile"
+          icon={User}
+          isSelected={activeItem === 'profile'}
+          onClick={() => setActiveItem('profile')}
+          replace
+        />
+      )}
     </nav>
   )
 }

@@ -4,11 +4,14 @@ import { SignIn, SignOut } from '@phosphor-icons/react'
 import { ComponentProps } from 'react'
 import { Avatar } from './avatar'
 import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
-export interface LogoutButtonProps extends ComponentProps<'button'> {}
+export interface UserSessionButtonProps extends ComponentProps<'button'> {}
 
-export function LogoutButton(props: LogoutButtonProps) {
+export function UserSessionButton(props: UserSessionButtonProps) {
   const { data: session } = useSession()
+
+  const router = useRouter()
 
   async function handleSignOut() {
     try {
@@ -36,9 +39,13 @@ export function LogoutButton(props: LogoutButtonProps) {
     )
   } else {
     return (
-      <button {...props} className="z-10 flex items-center gap-3">
+      <button
+        {...props}
+        className="z-10 flex items-center gap-3"
+        onClick={() => router.push('/login')}
+      >
         <span className="font-bold text-gray-200">Log in</span>
-        <SignIn size={20} className="text-green-100" onClick={handleSignOut} />
+        <SignIn size={20} className="text-green-100" />
       </button>
     )
   }
