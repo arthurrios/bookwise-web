@@ -2,10 +2,10 @@
 import type { Metadata } from 'next'
 import { Nunito_Sans } from 'next/font/google'
 
-import { auth } from '@/lib/auth'
 import SessionProvider from '@/app/components/session-provider'
 
 import './globals.css'
+import { getServerSession } from 'next-auth'
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
@@ -21,7 +21,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const session = await auth()
+  const session = await getServerSession()
 
   return (
     <html className={nunitoSans.className} lang="en">

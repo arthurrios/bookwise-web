@@ -1,8 +1,4 @@
-import googleLogo from '@/app/assets/google-logo.svg'
-import githubLogo from '@/app/assets/github-logo.svg'
-import rocketSvg from '@/app/assets/rocket.svg'
-
-import { LoginButton } from './components/login-button'
+import { LoginMenu } from './components/login-menu'
 
 export default function Login() {
   return (
@@ -14,11 +10,7 @@ export default function Login() {
             Login or access as a visitor.
           </p>
         </div>
-        <div className="flex flex-col gap-4">
-          <LoginButton title="Login with Google" imgSrc={googleLogo} />
-          <LoginButton title="Login with GitHub" imgSrc={githubLogo} />
-          <LoginButton title="Login as a visitor" imgSrc={rocketSvg} />
-        </div>
+        <LoginMenu />
       </div>
     </div>
   )

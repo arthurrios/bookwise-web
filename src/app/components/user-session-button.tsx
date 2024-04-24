@@ -21,15 +21,17 @@ export function UserSessionButton(props: UserSessionButtonProps) {
     }
   }
 
+  const username = session?.user.name.split(' ')[0]
+
   if (session?.user) {
     return (
       <button {...props} className="z-10 flex items-center gap-3">
         <Avatar
-          src={String(session?.user?.image)}
+          src={session?.user?.avatar_url}
           size="sm"
-          alt="User profile image"
+          alt={`${session.user.name} profile image`}
         />
-        <span className="text-sm text-gray-200">{session?.user?.name}</span>
+        <span className="text-sm text-gray-200">{username}</span>
         <SignOut
           size={28}
           className="text-danger-light"
