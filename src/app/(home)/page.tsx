@@ -2,8 +2,22 @@ import { LinkButton } from '@/app/components/link-button'
 import { FeaturedBookCard } from '../components/featured-book-card'
 import { UserBookCard } from '../components/user-book-card'
 import { SmallBookCard } from '../components/small-book-card'
+import { api } from '@/data/api'
+import { RatingDTO } from '@/data/types/ratings'
 
-export default function Home() {
+async function getLatestRatings(): Promise<RatingDTO[]> {
+  const response = await api('/ratings/latest')
+
+  const { ratings } = await response.json()
+
+  return ratings
+}
+
+export default async function Home() {
+  const ratings = await getLatestRatings()
+
+  console.log(ratings)
+
   return (
     <div className="pb-12 pl-18">
       <div className="h-full max-w-main flex-1">
@@ -22,10 +36,9 @@ export default function Home() {
             <div className="mt-10">
               <span className="text-sm text-gray-100">Recent ratings</span>
               <div className="mt-4 space-y-3">
-                <UserBookCard />
-                <UserBookCard />
-                <UserBookCard />
-                <UserBookCard />
+                {ratings.map((rating) => {
+                  return <UserBookCard key={rating.id} rating={rating} />
+                })}
               </div>
             </div>
           </div>

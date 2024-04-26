@@ -6,7 +6,6 @@ import SessionProvider from '@/app/components/session-provider'
 
 import './globals.css'
 import { auth } from '@/lib/auth'
-import { QueryClient } from './components/query-client-provider'
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
@@ -27,9 +26,7 @@ export default async function RootLayout({
   return (
     <html className={nunitoSans.className} lang="en">
       <body className="bg-gray-800 text-gray-100 antialiased">
-        <QueryClient>
-          <SessionProvider session={session}>{children}</SessionProvider>
-        </QueryClient>
+        <SessionProvider session={session}>{children}</SessionProvider>
       </body>
     </html>
   )
