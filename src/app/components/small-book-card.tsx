@@ -1,11 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { BookCardDTO } from '../dtos/BookCardDTO'
-import bookImg from '../../../public/images/books/a-revolucao-dos-bichos.png'
 import { ComponentProps } from 'react'
 import { Rating } from './rating'
 import { VariantProps, tv } from 'tailwind-variants'
+import { BookWithAvgRating } from '@/data/types/book'
 
 const smallBookCard = tv({
   slots: {
@@ -33,13 +32,13 @@ const smallBookCard = tv({
 
 export type SmallBookCardProps = ComponentProps<'button'> &
   VariantProps<typeof smallBookCard> & {
-    data: BookCardDTO
-    isRateByUser?: boolean
+    book: BookWithAvgRating
+    alreadyRead?: boolean
   }
 
 export function SmallBookCard({
-  data,
-  isRateByUser = false,
+  book,
+  alreadyRead = false,
   variant,
   ...props
 }: SmallBookCardProps) {
@@ -47,7 +46,7 @@ export function SmallBookCard({
 
   return (
     <button {...props} className={container()}>
-      {isRateByUser && (
+      {alreadyRead && (
         <div className="absolute right-0 top-0 rounded-bl-[4px] bg-green-300 px-3 py-1">
           <span className="text-xs font-bold uppercase text-green-100">
             read
@@ -55,15 +54,21 @@ export function SmallBookCard({
         </div>
       )}
       <div className="flex w-full space-x-5">
-        <Image width={108} className={image()} alt="Book cover" src={bookImg} />
+        <Image
+          width={108}
+          height={152}
+          className={image()}
+          alt={`${book.name} book cover`}
+          src={book.cover_url}
+        />
         <div className={rightContainer()}>
           <div className="flex flex-col">
             <h1 className="font-bold leading-short text-gray-100">
-              A revolução dos bichos
+              {book.name}
             </h1>
-            <span className="text-sm text-gray-400">George Orwell</span>
+            <span className="text-sm text-gray-400">{book.author}</span>
           </div>
-          <Rating rate={4} />
+          <Rating rate={book.avgRating} />
         </div>
       </div>
     </button>

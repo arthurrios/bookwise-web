@@ -4,6 +4,7 @@ import { UserBookCard } from '../components/user-book-card'
 import { SmallBookCard } from '../components/small-book-card'
 import { api } from '@/data/api'
 import { RatingDTO } from '@/data/types/ratings'
+import { BookWithAvgRating } from '@/data/types/book'
 
 async function getLatestRatings(): Promise<RatingDTO[]> {
   const response = await api('/ratings/latest')
@@ -13,10 +14,17 @@ async function getLatestRatings(): Promise<RatingDTO[]> {
   return ratings
 }
 
+async function getBooksWithAvgRating(): Promise<BookWithAvgRating[]> {
+  const response = await api('/books/popular')
+
+  const { books } = await response.json()
+
+  return books
+}
+
 export default async function Home() {
   const ratings = await getLatestRatings()
-
-  console.log(ratings)
+  const books = await getBooksWithAvgRating()
 
   return (
     <div className="pb-12 pl-18">
@@ -53,10 +61,9 @@ export default async function Home() {
               />
             </div>
             <div className="space-y-3">
-              <SmallBookCard />
-              <SmallBookCard />
-              <SmallBookCard />
-              <SmallBookCard />
+              {books.map((book) => {
+                return <SmallBookCard key={book.id} book={book} />
+              })}
             </div>
           </div>
         </div>

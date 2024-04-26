@@ -7,3 +7,7 @@ export interface BookDTO {
   total_pages: number
   created_at: string
 }
+
+export interface BookWithAvgRating extends BookDTO {
+  avgRating: number
+}
