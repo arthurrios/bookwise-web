@@ -1,18 +1,20 @@
-'use client'
-
 import { Avatar } from '@/app/components/avatar'
 import { Input } from '@/app/components/input'
+
+import { ProfileItem } from './components/profile-item'
+import { ProfileBookCard } from '@/app/components/profile-book-card'
 import {
   BookOpen,
   BookmarkSimple,
   Books,
   MagnifyingGlass,
   UserList,
-} from '@phosphor-icons/react'
-import { ProfileItem } from './components/profile-item'
-import { ProfileBookCard } from '@/app/components/profile-book-card'
+} from '@phosphor-icons/react/dist/ssr'
+import { auth } from '@/lib/auth'
 
-export default function Profile() {
+export default async function Profile() {
+  const session = await auth()
+
   return (
     <div className="pb-12 pl-18">
       <div className="flex max-w-profileContainer gap-16">
@@ -40,12 +42,12 @@ export default function Profile() {
         <div className="flex h-full w-full flex-col items-center gap-8 border-l border-l-gray-700">
           <div className="flex flex-col items-center gap-5 pb-2">
             <Avatar
-              src="https://github.com/arthurrios.png"
+              src={session?.user?.avatar_url ? session.user.avatar_url : ''}
               size="lg"
-              alt="User profile image"
+              alt={`${session?.user.name} profile image.`}
             />
             <div className="flex flex-col items-center">
-              <h2 className="text-xl font-bold">Arthur Rios</h2>
+              <h2 className="text-xl font-bold">{session?.user.name}</h2>
               <span className="text-sm text-gray-400">member since 2024</span>
             </div>
           </div>

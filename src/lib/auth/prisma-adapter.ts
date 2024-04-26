@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Adapter } from 'next-auth/adapters'
+import { Adapter } from '@auth/core/adapters'
 import { prisma } from '../prisma'
-import { NextApiRequest, NextApiResponse } from 'next'
 
-export function PrismaAdapter(
-  req: NextApiRequest,
-  res: NextApiResponse,
-): Adapter {
+export function PrismaAdapter(): Adapter {
   return {
     async createUser(user) {
       const prismaUser = await prisma.user.create({
@@ -122,7 +118,6 @@ export function PrismaAdapter(
           token_type: account.token_type,
           scope: account.scope,
           id_token: account.id_token,
-          session_state: account.session_state,
         },
       })
     },
@@ -166,10 +161,6 @@ export function PrismaAdapter(
           id: session.user_id,
         },
       })
-
-      if (!user || !session) {
-        return null
-      }
 
       return {
         session: {

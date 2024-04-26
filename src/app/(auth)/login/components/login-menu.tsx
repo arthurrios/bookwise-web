@@ -7,6 +7,7 @@ import githubLogo from '@/app/assets/github-logo.svg'
 import rocketSvg from '@/app/assets/rocket.svg'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+// import { signIn } from '@/lib/auth'
 
 export function LoginMenu() {
   const router = useRouter()

@@ -3,14 +3,18 @@
 import { SignIn, SignOut } from '@phosphor-icons/react'
 import { ComponentProps } from 'react'
 import { Avatar } from './avatar'
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { Session } from '@auth/core/types'
 
-export interface UserSessionButtonProps extends ComponentProps<'button'> {}
+export interface UserSessionButtonProps extends ComponentProps<'button'> {
+  session: Session
+}
 
-export function UserSessionButton(props: UserSessionButtonProps) {
-  const { data: session } = useSession()
-
+export function UserSessionButton({
+  session,
+  ...props
+}: UserSessionButtonProps) {
   const router = useRouter()
 
   async function handleSignOut() {
@@ -21,9 +25,9 @@ export function UserSessionButton(props: UserSessionButtonProps) {
     }
   }
 
-  const username = session?.user.name.split(' ')[0]
-
   if (session?.user) {
+    const username = session?.user?.name!.split(' ')[0]
+
     return (
       <button {...props} className="z-10 flex items-center gap-3">
         <Avatar
