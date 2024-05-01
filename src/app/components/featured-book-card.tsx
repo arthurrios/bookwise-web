@@ -1,16 +1,16 @@
 'use client'
 import Image from 'next/image'
 
-import bookImg from '../../../public/images/books/entendendo-algoritmos.png'
-import { BookCardDTO } from '../dtos/BookCardDTO'
-import { ComponentProps } from 'react'
 import { Rating } from './rating'
+import { ComponentProps } from 'react'
+import { LatestUserRating } from '@/data/types/ratings'
+import { formatDistanceToNow } from 'date-fns'
 
 export interface FeaturedBookCardProps extends ComponentProps<'button'> {
-  data: BookCardDTO
+  rating: LatestUserRating
 }
 
-export function FeaturedBookCard({ data, ...props }: FeaturedBookCardProps) {
+export function FeaturedBookCard({ rating, ...props }: FeaturedBookCardProps) {
   return (
     <button
       {...props}
@@ -19,29 +19,29 @@ export function FeaturedBookCard({ data, ...props }: FeaturedBookCardProps) {
       <div className="flex w-full space-x-6">
         <Image
           alt="Book cover"
-          src={bookImg}
+          src={rating.book.cover_url}
           width={108}
+          height={152}
           className="rounded-[4px]"
         />
-        <div className="flex flex-col justify-between text-left">
+        <div className="flex w-full flex-col justify-between text-left">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-300">Today</span>
-              <Rating rate={2.7} />
+              <span className="text-sm text-gray-300">
+                {formatDistanceToNow(rating.created_at)}
+              </span>
+              <Rating rate={rating.rate} />
             </div>
             <div className="flex flex-col">
-              <h1 className="font-bold leading-short">Entendendo algoritmos</h1>
+              <h1 className="font-bold leading-short">{rating.book.name}</h1>
               <h2 className="text-sm leading-short text-gray-400">
-                Aditya Bhargava
+                {rating.book.author}
               </h2>
             </div>
           </div>
 
           <p className="line-clamp-2 truncate text-wrap text-sm text-gray-300">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            reiciendis tenetur asperiores voluptatum veniam repudiandae rem
-            ullam eum. Accusantium numquam in cumque ea error repellendus.
-            Minima laborum aliquid placeat similique.
+            {rating.description}
           </p>
         </div>
       </div>

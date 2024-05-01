@@ -1,10 +1,13 @@
-import NextAuth from 'next-auth'
+import NextAuth, { NextAuthConfig } from 'next-auth'
 import GithubProvider, { GitHubProfile } from 'next-auth/providers/github'
 import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google'
 import { PrismaAdapter } from '@/lib/auth/prisma-adapter'
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const BASE_PATH = '/api/auth'
+
+const authOptions: NextAuthConfig = {
   adapter: PrismaAdapter(),
+  basePath: BASE_PATH,
 
   providers: [
     GithubProvider({
@@ -40,4 +43,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
     },
   },
-})
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions)

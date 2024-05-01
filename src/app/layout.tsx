@@ -5,7 +5,7 @@ import { Nunito_Sans } from 'next/font/google'
 import SessionProvider from '@/app/components/session-provider'
 
 import './globals.css'
-import { auth } from '@/lib/auth'
+import { BASE_PATH, auth } from '@/lib/auth'
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
@@ -26,7 +26,9 @@ export default async function RootLayout({
   return (
     <html className={nunitoSans.className} lang="en">
       <body className="bg-gray-800 text-gray-100 antialiased">
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <SessionProvider basePath={BASE_PATH} session={session}>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   )

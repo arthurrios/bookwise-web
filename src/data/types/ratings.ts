@@ -11,3 +11,7 @@ export interface RatingDTO {
   book: BookDTO
   user: UserDTO
 }
+
+export interface LatestUserRating extends RatingDTO {
+  book: BookDTO
+}
