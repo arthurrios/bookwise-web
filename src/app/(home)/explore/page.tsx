@@ -3,6 +3,7 @@
 import { SmallBookCard } from '@/app/components/small-book-card'
 import { Tag } from '@/app/components/tag'
 import { useState } from 'react'
+import { categories } from '../../../../prisma/constants/categories'
 
 export default function Explore() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -26,21 +27,21 @@ export default function Explore() {
             isSelected={selectedCategories.length === 0}
             onClick={() => setSelectedCategories([])}
           />
-          {Array.from({ length: 12 }).map((_, i) => {
+          {categories.map((category) => {
             return (
               <Tag
-                key={i}
-                title="Programming"
-                isSelected={selectedCategories.includes(String(i))}
-                onClick={() => handleChangeFilter(String(i))}
+                key={category.id}
+                title={category.name}
+                isSelected={selectedCategories.includes(category.name)}
+                onClick={() => handleChangeFilter(category.name)}
               />
             )
           })}
         </div>
         <div className="grid grid-cols-3 gap-5 2xl:grid-cols-4">
-          {Array.from({ length: 22 }).map((_, i) => {
-            return <SmallBookCard key={i} isRateByUser variant="explore" />
-          })}
+          {/* {Array.from({ length: 22 }).map((_, i) => {
+            return <SmallBookCard key={i} variant="explore" />
+          })} */}
         </div>
       </div>
     </div>
