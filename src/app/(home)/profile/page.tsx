@@ -2,7 +2,10 @@ import { Avatar } from '@/app/components/avatar'
 import { Input } from '@/app/components/input'
 
 import { ProfileItem } from './components/profile-item'
-import { ProfileBookCard } from '@/app/components/profile-book-card'
+import {
+  ProfileBookCard,
+  ProfileRating,
+} from '@/app/components/profile-book-card'
 import {
   BookOpen,
   BookmarkSimple,
@@ -11,9 +14,38 @@ import {
   UserList,
 } from '@phosphor-icons/react/dist/ssr'
 import { auth } from '@/lib/auth'
+import { api } from '@/data/api'
+import { headers } from 'next/headers'
+import { formatDistanceToNow } from 'date-fns'
+
+export type ProfileData = {
+  user: {
+    avatar_url: string
+    name: string
+    member_since: string
+  }
+  ratings: ProfileRating[]
+  readPages: number
+  ratedBooks: number
+  readAuthors: number
+  mostReadCategory?: string
+}
+
+async function getUserProfile(): Promise<ProfileData> {
+  const response = await api('/profile', {
+    method: 'GET',
+    headers: headers(),
+  })
+
+  const { profile } = await response.json()
+
+  return profile
+}
 
 export default async function Profile() {
   const session = await auth()
+
+  const profile = await getUserProfile()
 
   return (
     <div className="pb-12 pl-18">
@@ -25,18 +57,18 @@ export default async function Profile() {
             placeholder="Search rated book"
           />
           <div className="space-y-6">
-            <div className="space-y-2">
-              <span className="text-sm text-gray-300">Today</span>
-              <ProfileBookCard />
-            </div>
-            <div className="space-y-2">
-              <span className="text-sm text-gray-300">Today</span>
-              <ProfileBookCard />
-            </div>
-            <div className="space-y-2">
-              <span className="text-sm text-gray-300">Today</span>
-              <ProfileBookCard />
-            </div>
+            {profile.ratings.map((rating) => {
+              return (
+                <div key={rating.id} className="space-y-2">
+                  <span className="text-sm text-gray-300">
+                    {formatDistanceToNow(rating.created_at, {
+                      addSuffix: true,
+                    })}
+                  </span>
+                  <ProfileBookCard rating={rating} />
+                </div>
+              )
+            })}
           </div>
         </div>
         <div className="flex h-full w-full flex-col items-center gap-8 border-l border-l-gray-700">
