@@ -2,21 +2,52 @@
 
 import { SmallBookCard } from '@/app/components/small-book-card'
 import { Tag } from '@/app/components/tag'
-import { useState } from 'react'
-import { categories } from '../../../../prisma/constants/categories'
+import { useEffect, useState } from 'react'
+import { api } from '@/data/api'
+import { BookWithAvgRating } from '@/data/types/book'
+import { Categories } from '@/data/types/categories'
 
 export default function Explore() {
+  const [books, setBooks] = useState<BookWithAvgRating[]>([])
+  const [categories, setCategories] = useState<Categories[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 
   function handleChangeFilter(selectedCategory: string) {
-    if (selectedCategories.includes(selectedCategory)) {
-      setSelectedCategories((prevState) =>
-        prevState.filter((category) => category !== selectedCategory),
-      )
-    } else {
-      setSelectedCategories((prevState) => [...prevState, selectedCategory])
+    if (selectedCategories) {
+      if (selectedCategories.includes(selectedCategory)) {
+        setSelectedCategories((prevState) =>
+          prevState.filter((category) => category !== selectedCategory),
+        )
+      } else {
+        setSelectedCategories((prevState) => [...prevState, selectedCategory])
+      }
     }
   }
+
+  async function getBooksWithAvgRating(categoriesIds?: string[]) {
+    if (categoriesIds) {
+      const categoriesParams = categoriesIds.join('/')
+
+      const response = await api(`/books/${categoriesParams}`)
+
+      const { books } = await response.json()
+
+      setBooks(books)
+    }
+  }
+
+  async function getCategories() {
+    const response = await api('/books/categories')
+
+    const { categories } = await response.json()
+
+    setCategories(categories)
+  }
+
+  useEffect(() => {
+    getBooksWithAvgRating(selectedCategories)
+    getCategories()
+  }, [selectedCategories])
 
   return (
     <div className="pb-12 pl-18 pr-24 pt-3">
@@ -32,16 +63,23 @@ export default function Explore() {
               <Tag
                 key={category.id}
                 title={category.name}
-                isSelected={selectedCategories.includes(category.name)}
-                onClick={() => handleChangeFilter(category.name)}
+                isSelected={selectedCategories.includes(category.id)}
+                onClick={() => handleChangeFilter(category.id)}
               />
             )
           })}
         </div>
         <div className="grid grid-cols-3 gap-5 2xl:grid-cols-4">
-          {/* {Array.from({ length: 22 }).map((_, i) => {
-            return <SmallBookCard key={i} variant="explore" />
-          })} */}
+          {books.map((book) => {
+            return (
+              <SmallBookCard
+                key={book.id}
+                variant="explore"
+                book={book}
+                alreadyRead={book.alreadyRead}
+              />
+            )
+          })}
         </div>
       </div>
     </div>

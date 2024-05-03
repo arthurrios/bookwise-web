@@ -23,6 +23,7 @@ async function getBooksWithAvgRating(): Promise<BookWithAvgRating[]> {
 
   return books
 }
+
 async function getLatestUserRating(): Promise<LatestUserRating> {
   const response = await api('/ratings/user-latest', {
     method: 'GET',
