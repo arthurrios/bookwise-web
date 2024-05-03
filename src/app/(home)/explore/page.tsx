@@ -6,11 +6,14 @@ import { useEffect, useState } from 'react'
 import { api } from '@/data/api'
 import { BookWithAvgRating } from '@/data/types/book'
 import { Categories } from '@/data/types/categories'
+import { useSearch } from '@/contexts/explore-search-context'
 
 export default function Explore() {
   const [books, setBooks] = useState<BookWithAvgRating[]>([])
   const [categories, setCategories] = useState<Categories[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+
+  const { search } = useSearch()
 
   function handleChangeFilter(selectedCategory: string) {
     if (selectedCategories) {
@@ -49,6 +52,13 @@ export default function Explore() {
     getCategories()
   }, [selectedCategories])
 
+  const filteredBooks = books.filter((book) => {
+    return (
+      book.name.toLowerCase().includes(search.toLowerCase()) ||
+      book.author.toLowerCase().includes(search.toLowerCase())
+    )
+  })
+
   return (
     <div className="pb-12 pl-18 pr-24 pt-3">
       <div className="h-full min-w-explore">
@@ -70,7 +80,7 @@ export default function Explore() {
           })}
         </div>
         <div className="grid grid-cols-3 gap-5 2xl:grid-cols-4">
-          {books.map((book) => {
+          {filteredBooks.map((book) => {
             return (
               <SmallBookCard
                 key={book.id}

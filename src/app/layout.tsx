@@ -6,6 +6,7 @@ import SessionProvider from '@/app/components/session-provider'
 
 import './globals.css'
 import { BASE_PATH, auth } from '@/lib/auth'
+import { SearchProvider } from '@/contexts/explore-search-context'
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
@@ -26,9 +27,11 @@ export default async function RootLayout({
   return (
     <html className={nunitoSans.className} lang="en">
       <body className="bg-gray-800 text-gray-100 antialiased">
-        <SessionProvider basePath={BASE_PATH} session={session}>
-          {children}
-        </SessionProvider>
+        <SearchProvider>
+          <SessionProvider basePath={BASE_PATH} session={session}>
+            {children}
+          </SessionProvider>
+        </SearchProvider>
       </body>
     </html>
   )

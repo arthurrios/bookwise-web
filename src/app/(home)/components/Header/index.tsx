@@ -1,6 +1,7 @@
 'use client'
 
 import { Input } from '@/app/components/input'
+import { useSearch } from '@/contexts/explore-search-context'
 import {
   Binoculars,
   ChartLineUp,
@@ -11,6 +12,8 @@ import { usePathname } from 'next/navigation'
 import { ReactNode } from 'react'
 
 export function Header() {
+  const { search, setSearch } = useSearch()
+
   const route = usePathname().split('/')[1]
 
   let icon: ReactNode
@@ -42,6 +45,8 @@ export function Header() {
           icon={MagnifyingGlass}
           placeholder="Search book or author"
           variant="profile"
+          value={search}
+          onChange={({ target }) => setSearch(target.value)}
         />
       )}
     </div>
