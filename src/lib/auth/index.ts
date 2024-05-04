@@ -19,6 +19,7 @@ const authOptions: NextAuthConfig = {
           avatar_url: profile.avatar_url,
         }
       },
+      allowDangerousEmailAccountLinking: true,
     }),
     GoogleProvider({
       profile(profile: GoogleProfile) {
@@ -29,6 +30,7 @@ const authOptions: NextAuthConfig = {
           avatar_url: profile.picture,
         }
       },
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
 
