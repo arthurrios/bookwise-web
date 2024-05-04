@@ -2,7 +2,7 @@ import { ElementType } from 'react'
 
 export interface ProfileItemProps {
   icon: ElementType
-  data: string
+  data?: number | string
   subdata: string
 }
 
