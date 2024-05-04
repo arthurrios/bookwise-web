@@ -59,7 +59,7 @@ export default function Profile() {
     }
 
     fetchData()
-  }, [])
+  }, [router])
 
   const filteredRatings = profile?.ratings.filter((rating) => {
     return rating.book.name.toLowerCase().includes(search.toLowerCase())
