@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 'use client'
 
 import { Avatar } from '@/app/components/avatar'
@@ -18,7 +19,6 @@ import {
 import { api } from '@/data/api'
 import { formatDistanceToNow, getYear } from 'date-fns'
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 
 export type ProfileData = {
   user: {
@@ -36,8 +36,6 @@ export type ProfileData = {
 export default function Profile() {
   const [search, setSearch] = useState('')
   const [profile, setProfile] = useState<ProfileData>()
-
-  const { data: session } = useSession()
 
   useEffect(() => {
     async function getUserProfile(): Promise<ProfileData> {
@@ -64,38 +62,53 @@ export default function Profile() {
     <div className="pb-12 pl-18">
       <div className="flex max-w-profileContainer gap-16">
         <div className="min-w-mainProfile space-y-10">
-          <Input
-            icon={MagnifyingGlass}
-            className="w-full"
-            placeholder="Search rated book"
-            value={search}
-            onChange={({ target }) => setSearch(target.value)}
-          />
+          {filteredRatings && filteredRatings?.length > 1 && (
+            <Input
+              icon={MagnifyingGlass}
+              className="w-full"
+              placeholder="Search rated book"
+              value={search}
+              onChange={({ target }) => setSearch(target.value)}
+            />
+          )}
           <div className="space-y-6">
-            {filteredRatings?.map((rating) => {
-              return (
-                <div key={rating.id} className="space-y-2">
-                  <span className="text-sm text-gray-300">
-                    {formatDistanceToNow(rating.created_at, {
-                      addSuffix: true,
-                    })}
-                  </span>
-                  <ProfileBookCard rating={rating} />
-                </div>
-              )
-            })}
+            {filteredRatings?.length !== 0 ? (
+              <>
+                {filteredRatings?.map((rating) => {
+                  return (
+                    <div key={rating.id} className="space-y-2">
+                      <span className="text-sm text-gray-300">
+                        {formatDistanceToNow(rating.created_at, {
+                          addSuffix: true,
+                        })}
+                      </span>
+                      <ProfileBookCard rating={rating} />
+                    </div>
+                  )
+                })}
+              </>
+            ) : (
+              <div className="mt-52 flex flex-col items-center">
+                <h1 className="text-xl font-bold text-green-100">
+                  Oops! You haven't rated any books yet.
+                </h1>
+                <span className="text-gray-400">
+                  Rate your first book to see it displayed in your profile.
+                </span>
+              </div>
+            )}
           </div>
         </div>
         {profile && (
           <div className="flex h-full w-full flex-col items-center gap-8 border-l border-l-gray-700">
             <div className="flex flex-col items-center gap-5 pb-2">
               <Avatar
-                src={session?.user?.avatar_url ? session.user.avatar_url : ''}
+                src={profile.user.avatar_url}
                 size="lg"
-                alt={`${session?.user.name} profile image.`}
+                alt={`${profile.user.name} profile image.`}
               />
               <div className="flex flex-col items-center">
-                <h2 className="text-xl font-bold">{session?.user.name}</h2>
+                <h2 className="text-xl font-bold">{profile.user.name}</h2>
                 <span className="text-sm text-gray-400">
                   member since {getYear(profile?.user.member_since)}
                 </span>
@@ -105,22 +118,22 @@ export default function Profile() {
             <div className="flex flex-col gap-10 px-[3.375rem] py-5">
               <ProfileItem
                 icon={BookOpen}
-                data={profile?.readPages}
+                data={profile?.readPages ?? 0}
                 subdata="Pages read"
               />
               <ProfileItem
                 icon={Books}
-                data={profile.ratedBooks}
+                data={profile.ratedBooks ?? 0}
                 subdata="Books rated"
               />
               <ProfileItem
                 icon={UserList}
-                data={profile.readAuthors}
+                data={profile.readAuthors ?? 0}
                 subdata="Authors read"
               />
               <ProfileItem
                 icon={BookmarkSimple}
-                data={profile.mostReadCategory}
+                data={profile.mostReadCategory ?? 'No categories read'}
                 subdata="Most read category"
               />
             </div>

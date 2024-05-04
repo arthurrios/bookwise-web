@@ -5,7 +5,6 @@ import { SmallBookCard } from '../components/small-book-card'
 import { api } from '@/data/api'
 import { LatestUserRating, RatingDTO } from '@/data/types/ratings'
 import { BookWithAvgRating } from '@/data/types/book'
-import { auth } from '@/lib/auth'
 import { headers } from 'next/headers'
 
 async function getLatestRatings(): Promise<RatingDTO[]> {
@@ -36,8 +35,6 @@ async function getLatestUserRating(): Promise<LatestUserRating> {
 }
 
 export default async function Home() {
-  const session = await auth()
-
   const ratings = await getLatestRatings()
   const books = await getBooksWithAvgRating()
   const latestUserRating = await getLatestUserRating()
@@ -47,7 +44,7 @@ export default async function Home() {
       <div className="h-full max-w-main flex-1">
         <div className="flex gap-16">
           <div>
-            {session && (
+            {latestUserRating && (
               <>
                 <div className="mb-4 flex min-w-mainHome items-center justify-between">
                   <span className="text-sm text-gray-100">
@@ -63,7 +60,7 @@ export default async function Home() {
                 <FeaturedBookCard rating={latestUserRating} />
               </>
             )}
-            <div className={session ? 'mt-10' : ''}>
+            <div className={latestUserRating ? 'mt-10' : ''}>
               <span className="text-sm text-gray-100">Recent ratings</span>
               <div className="mt-4 space-y-3">
                 {ratings.map((rating) => {

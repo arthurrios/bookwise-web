@@ -46,11 +46,16 @@ export async function GET() {
     return acc
   }, [] as string[])
 
-  const categories = profile?.ratings.flatMap((rating) =>
-    rating.book.categories.flatMap((category) => category.category.name),
-  )
+  const categories: string[] | null = profile?.ratings
+    ? profile?.ratings.flatMap((rating) =>
+        rating.book.categories.flatMap((category) => category.category.name),
+      )
+    : null
 
-  const mostReadCategory = categories ? getMostFrequentString(categories) : null
+  const mostReadCategory =
+    categories && categories?.length !== 0
+      ? getMostFrequentString(categories)
+      : 'No categories read'
 
   const profileData = {
     user: {
@@ -58,7 +63,7 @@ export async function GET() {
       name: profile?.name,
       member_since: profile?.created_at,
     },
-    ratings: profile?.ratings,
+    ratings: profile?.ratings ?? null,
     readPages,
     ratedBooks,
     readAuthors: readAuthors?.length,
