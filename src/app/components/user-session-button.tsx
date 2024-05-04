@@ -29,7 +29,7 @@ export function UserSessionButton({
     const username = session?.user?.name!.split(' ')[0]
 
     return (
-      <button {...props} className="z-10 flex items-center gap-3">
+      <div className="z-10 flex items-center gap-3">
         <Avatar
           src={session?.user?.avatar_url}
           size="sm"
@@ -38,10 +38,10 @@ export function UserSessionButton({
         <span className="text-sm text-gray-200">{username}</span>
         <SignOut
           size={28}
-          className="text-danger-light"
+          className="cursor-pointer text-danger-light"
           onClick={handleSignOut}
         />
-      </button>
+      </div>
     )
   } else {
     return (
