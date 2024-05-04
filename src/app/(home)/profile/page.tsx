@@ -19,6 +19,7 @@ import {
 import { api } from '@/data/api'
 import { formatDistanceToNow, getYear } from 'date-fns'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export type ProfileData = {
   user: {
@@ -37,9 +38,15 @@ export default function Profile() {
   const [search, setSearch] = useState('')
   const [profile, setProfile] = useState<ProfileData>()
 
+  const router = useRouter()
+
   useEffect(() => {
     async function getUserProfile(): Promise<ProfileData> {
       const response = await api('/profile')
+
+      if (response.status === 401) {
+        router.push('/')
+      }
 
       const { profile } = await response.json()
 
