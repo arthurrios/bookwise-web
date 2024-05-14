@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { Session } from '@auth/core/types'
 
 export interface UserSessionButtonProps extends ComponentProps<'button'> {
-  session: Session
+  session?: Session | null
 }
 
 export function UserSessionButton({
