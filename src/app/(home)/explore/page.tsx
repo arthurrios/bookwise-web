@@ -7,6 +7,7 @@ import { api } from '@/data/api'
 import { BookWithAvgRating } from '@/data/types/book'
 import { Categories } from '@/data/types/categories'
 import { useSearch } from '@/contexts/explore-search-context'
+import { RatingModal } from './RatingModal'
 
 export default function Explore() {
   const [books, setBooks] = useState<BookWithAvgRating[]>([])
@@ -82,12 +83,13 @@ export default function Explore() {
         <div className="grid grid-cols-3 gap-5 2xl:grid-cols-4">
           {filteredBooks.map((book) => {
             return (
-              <SmallBookCard
-                key={book.id}
-                variant="explore"
-                book={book}
-                alreadyRead={book.alreadyRead}
-              />
+              <RatingModal key={book.id}>
+                <SmallBookCard
+                  variant="explore"
+                  book={book}
+                  alreadyRead={book.alreadyRead}
+                />
+              </RatingModal>
             )
           })}
         </div>

@@ -8,12 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        ratingModal: '-4px 0 30px 0 rgba(0,0,0,0.5)',
+      },
       padding: {
         18: '4.5rem',
       },
       width: {
         loginBox: '372px',
         bookCard: '600px',
+        ratingModal: '660px',
       },
       maxHeight: {
         asideMenu: '988px',
