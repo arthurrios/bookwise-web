@@ -2,7 +2,6 @@ import Image from 'next/image'
 
 import bookImg from '@/../public/images/books/14-habitos-de-desenvolvedores-altamente-produtivos.png'
 import { Rating } from '@/app/components/rating'
-import { ProfileItem } from '@/app/(home)/profile/components/profile-item'
 import { BookOpen, BookmarkSimple } from '@phosphor-icons/react/dist/ssr'
 import { BookItem } from './book-item'
 
