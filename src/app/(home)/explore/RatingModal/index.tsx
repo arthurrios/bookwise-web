@@ -1,15 +1,31 @@
+'use client'
+
 import { Button } from '@/app/components/button'
 import { X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { RatedBook } from './components/rated-book'
 import { RatingComment } from './components/rating-comment'
+import { RatingBox } from './components/rating-box'
+import { useSession } from 'next-auth/react'
 
 export interface RatingModalProps {
   children: ReactNode
 }
 
 export function RatingModal({ children }: RatingModalProps) {
+  const [openRateBox, setOpenRateBox] = useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false)
+  const { data: session } = useSession()
+
+  function handleRateBook() {
+    if (session) {
+      setOpenRateBox((prevState) => !prevState)
+    } else {
+      setOpenLoginModal(true)
+    }
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
@@ -19,11 +35,12 @@ export function RatingModal({ children }: RatingModalProps) {
           <div className="flex flex-col gap-10">
             <RatedBook />
             <div>
-              <div className="flex items-center justify-between">
+              <div className="mb-4 flex items-center justify-between">
                 <h4 className="text-sm text-gray-200">Ratings</h4>
-                <Button title="Rate" />
+                <Button title="Rate" onClick={handleRateBook} />
               </div>
-              <div className="mt-4 space-y-5">
+              {openRateBox && <RatingBox session={session} />}
+              <div className="space-y-3">
                 <RatingComment variant="userRatedComment" />
                 {Array.from({ length: 6 }).map((comment) => {
                   return <RatingComment key={String(comment)} />
