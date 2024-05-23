@@ -1,5 +1,8 @@
 import { Avatar } from '@/app/components/avatar'
 import { Rating } from '@/app/components/rating'
+import { Rating as RatingProps, User } from '@prisma/client'
+import { formatDistanceToNow } from 'date-fns'
+import { Session } from 'next-auth'
 import { VariantProps, tv } from 'tailwind-variants'
 
 const comment = tv({
@@ -17,37 +20,46 @@ const comment = tv({
 })
 
 export interface RatingCommentProps extends VariantProps<typeof comment> {
-  // user: {
-  //   name: string
-  //   avatarUrl: string
-  // }
-  // created_at: string
-  // rate: number
-  // description: string
+  rating: RatingProps & {
+    user: User
+  }
+  session: Session | null
 }
 
-export function RatingComment({ variant }: RatingCommentProps) {
+export function RatingComment({
+  variant,
+  rating,
+  session,
+}: RatingCommentProps) {
   const { container } = comment({ variant })
 
+  const isOwner = session?.user.id === rating.user_id
+
   return (
-    <div className={container()}>
+    <div
+      className={
+        isOwner ? container({ variant: 'userRatedComment' }) : container()
+      }
+    >
       <div className="flex gap-4">
         <Avatar
-          src="https://github.com/arthurrios.png"
+          src={rating.user?.avatar_url ?? ''}
           size="md"
-          alt="User photo"
+          alt={`${rating.user.name} photo`}
         />
         <div className="flex-1">
-          <h1 className="font-bold leading-short text-gray-100">Arthur Rios</h1>
-          <span className="text-sm text-gray-400">2 days ago</span>
+          <h1 className="font-bold leading-short text-gray-100">
+            {rating.user.name}
+          </h1>
+          <span className="text-sm text-gray-400">
+            {formatDistanceToNow(rating.user.created_at, {
+              addSuffix: true,
+            })}
+          </span>
         </div>
-        <Rating rate={4} />
+        <Rating rate={rating.rate} />
       </div>
-      <p className="mt-5 text-sm text-gray-300">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis
-        voluptates dolor sit quis laboriosam dicta sunt odio deleniti animi
-        fugiat suscipit ex deserunt, harum magni molestias a itaque illum ullam?
-      </p>
+      <p className="mt-5 text-sm text-gray-300">{rating.description}</p>
     </div>
   )
 }

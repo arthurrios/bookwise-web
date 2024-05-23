@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { BookDTO, BookWithRatings } from '@/data/types/book'
-import { RatingDTO } from '@/data/types/ratings'
+import { BookWithRatings } from '@/data/types/book'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 import { z } from 'zod'

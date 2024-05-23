@@ -83,7 +83,7 @@ export default function Explore() {
         <div className="grid grid-cols-3 gap-5 2xl:grid-cols-4">
           {filteredBooks.map((book) => {
             return (
-              <RatingModal key={book.id}>
+              <RatingModal key={book.id} bookId={book.id}>
                 <SmallBookCard
                   variant="explore"
                   book={book}
