@@ -1,5 +1,6 @@
 import { Avatar } from '@/app/components/avatar'
 import { Rating } from '@/app/components/rating'
+import { TextArea } from '@/app/components/text-area'
 import { Session } from 'next-auth'
 import { useState } from 'react'
 
@@ -9,6 +10,7 @@ export interface RatingBoxProps {
 
 export function RatingBox({ session }: RatingBoxProps) {
   const [currentRate, setCurrentRate] = useState(0)
+  const [description, setDescription] = useState('')
 
   return (
     <div className="mb-3 space-y-6 rounded-[8px] bg-gray-700 p-6">
@@ -23,6 +25,14 @@ export function RatingBox({ session }: RatingBoxProps) {
           </h1>
         </div>
         <Rating rate={currentRate} setRating={setCurrentRate} variant="lg" />
+      </div>
+      <div>
+        <TextArea
+          placeholder="Write your rating"
+          maxLength={450}
+          value={description}
+          onChange={({ target }) => setDescription(target.value)}
+        />
       </div>
     </div>
   )
