@@ -3,7 +3,7 @@
 import { Button } from '@/app/components/button'
 import { X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 import { RatingComment } from './components/rating-comment'
 import { RatingBox } from './components/rating-box'
 import { useSession } from 'next-auth/react'
@@ -11,6 +11,7 @@ import { api } from '@/data/api'
 import { BookWithAvgRating } from '@/data/types/book'
 import { CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
 import { RatedBook } from './components/rated-book'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 export type BookDetails = BookWithAvgRating & {
   ratings: (Rating & {
@@ -37,6 +38,19 @@ export function RatingModal({ bookId, children }: RatingModalProps) {
   const [book, setBook] = useState<BookDetails>()
 
   const { data: session } = useSession()
+
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams],
+  )
 
   function handleRateBook() {
     if (session) {
@@ -66,12 +80,36 @@ export function RatingModal({ bookId, children }: RatingModalProps) {
     }
   }, [bookId, open])
 
+  useEffect(() => {
+    if (searchParams.get('book') === bookId) {
+      setOpen(true)
+    }
+  }, [bookId, searchParams])
+
+  const onOpenChange = (open: boolean) => {
+    if (open) {
+      window.history.pushState(
+        null,
+        '',
+        pathname + '?' + createQueryString('book', bookId),
+      )
+    } else {
+      window.history.pushState(null, '', '/explore')
+    }
+
+    setOpen(open)
+  }
+
+  const sortedRatingsByDate = book?.ratings?.sort((a, b) => {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  })
+
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>{children}</Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-20 bg-black/60" />
-        <Dialog.Content className="w-ratingModal shadow-ratingModal fixed right-0 top-0 z-30 h-full overflow-auto bg-gray-800 px-12 py-16">
+        <Dialog.Content className="fixed right-0 top-0 z-30 h-full w-ratingModal overflow-auto bg-gray-800 px-12 py-16 shadow-ratingModal">
           <div className="flex flex-col gap-10">
             {book ? (
               <RatedBook book={book} />
@@ -93,7 +131,7 @@ export function RatingModal({ bookId, children }: RatingModalProps) {
               )}
               <div className="space-y-3">
                 {book &&
-                  book?.ratings.map((rating) => {
+                  sortedRatingsByDate?.map((rating) => {
                     return (
                       <RatingComment
                         key={rating.id}
