@@ -39,7 +39,12 @@ export function RatingModal({ children }: RatingModalProps) {
                 <h4 className="text-sm text-gray-200">Ratings</h4>
                 <Button title="Rate" onClick={handleRateBook} />
               </div>
-              {openRateBox && <RatingBox session={session} />}
+              {openRateBox && (
+                <RatingBox
+                  session={session}
+                  onCancel={() => setOpenRateBox(false)}
+                />
+              )}
               <div className="space-y-3">
                 <RatingComment variant="userRatedComment" />
                 {Array.from({ length: 6 }).map((comment) => {
