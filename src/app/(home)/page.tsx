@@ -6,6 +6,7 @@ import { api } from '@/data/api'
 import { LatestUserRating, RatingDTO } from '@/data/types/ratings'
 import { BookWithAvgRating } from '@/data/types/book'
 import { headers } from 'next/headers'
+import Link from 'next/link'
 
 async function getLatestRatings(): Promise<RatingDTO[]> {
   const response = await api('/ratings/latest')
@@ -57,7 +58,9 @@ export default async function Home() {
                     color="purple"
                   />
                 </div>
-                <FeaturedBookCard rating={latestUserRating} />
+                <Link href={`/explore?book=${latestUserRating.book_id}`}>
+                  <FeaturedBookCard rating={latestUserRating} />
+                </Link>
               </>
             )}
             <div className={latestUserRating ? 'mt-10' : ''}>
@@ -79,9 +82,13 @@ export default async function Home() {
                 color="purple"
               />
             </div>
-            <div className="space-y-3">
+            <div className="flex flex-col gap-3">
               {books.map((book) => {
-                return <SmallBookCard key={book.id} book={book} />
+                return (
+                  <Link key={book.id} href={`/explore?book=${book.id}`}>
+                    <SmallBookCard book={book} />
+                  </Link>
+                )
               })}
             </div>
           </div>

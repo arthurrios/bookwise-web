@@ -20,6 +20,7 @@ import { api } from '@/data/api'
 import { formatDistanceToNow, getYear } from 'date-fns'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export type ProfileData = {
   user: {
@@ -89,7 +90,9 @@ export default function Profile() {
                           addSuffix: true,
                         })}
                       </span>
-                      <ProfileBookCard rating={rating} />
+                      <Link href={`/explore?book=${rating.book_id}`}>
+                        <ProfileBookCard rating={rating} />
+                      </Link>
                     </div>
                   )
                 })}
